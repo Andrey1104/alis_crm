@@ -21,13 +21,13 @@ def image_file_path(instance, filename):
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
-    description_cs = models.TextField()
-    description_en = models.TextField()
-    description_de = models.TextField()
+    description_cs = models.TextField(null=True, blank=True)
+    description_en = models.TextField(null=True, blank=True)
+    description_de = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=7, decimal_places=2)
     measure_unit = models.ForeignKey(MeasureUnit, on_delete=models.CASCADE)
     code = models.CharField(max_length=255)
-    image = models.ImageField(null=True, upload_to=image_file_path)
+    image = models.ImageField(null=True, upload_to=image_file_path, blank=True)
 
     def __str__(self):
         return self.name

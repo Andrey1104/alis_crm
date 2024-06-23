@@ -1,10 +1,16 @@
 from django.contrib import admin
-from .models import Company, Contact, Customer, Order
-from .forms import OrderAdminForm
+from sales.models import Company, Contact, Customer, Order, Cart
+from sales.forms import OrderAdminForm
+
+
+class CartInline(admin.TabularInline):
+    model = Cart
+    extra = 1
 
 
 class OrderAdmin(admin.ModelAdmin):
     form = OrderAdminForm
+    inlines = [CartInline]
 
     def save_model(self, request, obj, form, change):
         obj.save()

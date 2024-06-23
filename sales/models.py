@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.timezone import now
 
 from constants import ORDER_STATUSES, PRODUCTION_STATUS, REASONS, SALUT
+from stock.models import Product
 
 
 class Contact(models.Model):
@@ -20,6 +21,9 @@ class Customer(models.Model):
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
     def clean(self):
         if not self.phone and not self.email:
@@ -89,3 +93,17 @@ class Order(models.Model):
             raise ValidationError('Both partner and direct customer cannot be set simultaneously.')
 
         super().save(*args, **kwargs)
+
+
+class Cart(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        ordering = ("product",)
+
+    def __str__(self):
+        return f"{self.order}: {self.product} - {self.quantity}"
+
+
