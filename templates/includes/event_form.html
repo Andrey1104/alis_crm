@@ -1,0 +1,13 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+  <div class="event-form-container">
+    <h1>Редагувати подію</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Зберегти</button>
+      <a href="{% url 'task:event_detail' event.pk %}" class="btn btn-secondary">Відмінити</a>
+    </form>
+  </div>
+{% endblock %}

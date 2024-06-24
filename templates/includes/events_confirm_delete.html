@@ -1,0 +1,13 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+  <div class="event-delete-container">
+    <h1>Видалити подію</h1>
+    <p>Ви впевнені, що хочете видалити подію "{{ event.title }}"?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Видалити</button>
+      <a href="{% url 'task:event_detail' event.pk %}" class="btn btn-secondary">Відмінити</a>
+    </form>
+  </div>
+{% endblock %}

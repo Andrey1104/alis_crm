@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+{% block title %}
+  <title>Home page</title>
+{% endblock %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Window 1 content -->
+      <div class="window">
+        {% for task in tasks %}
+          {{ task.title }}
+        {% endfor %}
+
+      </div>
+    </div>
+    <div class="col-md-6">
+
+      <!-- Window 2 content -->
+      <div class="window">
+        {% include "includes/calendar.html" %}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="window">
+        Window 3
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="window">
+        Window 4
+      </div>
+    </div>
+  </div>
+{% endblock %}

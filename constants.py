@@ -35,3 +35,16 @@ SALUT = [
     ("PANI", "Paní"),
 
 ]
+TASK_PRIORITY = [
+    ("NON_URGENT", "Non-urgent"),
+    ("LOW", "Low"),
+    ("MEDIUM", "Medium"),
+    ("HIGH", "High"),
+    ("URGENT", "Urgent"),
+]
+TASK_STATUS = [
+    ("ASSIGNED", "Assigned"),
+    ("SUBMITTED", "Submitted"),
+    ("IN_PROCESS", "In Process"),
+    ("DONE", "Done"),
+]

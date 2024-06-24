@@ -1,0 +1,17 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+  <div class="event-detail-container">
+    <h1>{{ event.title }}</h1>
+    <p><strong>Опис:</strong> {{ event.description }}</p>
+    <p><strong>Початок:</strong> {{ event.start_time }}</p>
+    <p><strong>Завершення:</strong> {{ event.end_time }}</p>
+    <p><strong>Користувач:</strong> {{ event.user.username }}</p>
+    <a href="{% url 'task:calendar' %}" class="btn btn-primary">Повернутись до календаря</a>
+
+    {% if request.user == event.user %}
+      <a href="{% url 'task:event_edit' event.pk %}" class="btn btn-warning">Редагувати</a>
+      <a href="{% url 'task:event_delete' event.pk %}" class="btn btn-danger">Видалити</a>
+    {% endif %}
+  </div>
+{% endblock %}

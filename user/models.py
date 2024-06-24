@@ -57,6 +57,7 @@ class User(AbstractUser):
         Position,
         on_delete=models.CASCADE,
         related_name="workers",
+        null=True,
     )
     groups = models.ManyToManyField(
         Group,

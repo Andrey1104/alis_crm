@@ -46,12 +46,10 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap4",
     "chat",
+    "task",
     "stock",
     "sales",
-    "tasks",
     "user",
-
-
 ]
 
 MIDDLEWARE = [
@@ -143,7 +141,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = "executor.User"
+AUTH_USER_MODEL = "user.User"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 

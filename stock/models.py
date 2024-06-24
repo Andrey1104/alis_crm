@@ -26,7 +26,7 @@ class Product(models.Model):
     description_de = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=7, decimal_places=2)
     measure_unit = models.ForeignKey(MeasureUnit, on_delete=models.CASCADE)
-    code = models.CharField(max_length=255)
+    code = models.CharField(max_length=255, unique=True)
     image = models.ImageField(null=True, upload_to=image_file_path, blank=True)
 
     def __str__(self):

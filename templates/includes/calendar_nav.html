@@ -1,0 +1,44 @@
+<!-- includes/calendar_nav.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-grey">
+  <a class="navbar-brand" href={% url "task:calendar" %}>Мій Календар</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'task:monthly_calendar' %}">Календар на місяць</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Співробітники
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% for user in users %}
+            <a class="dropdown-item user-select" href="#" data-user-id="{{ user.id }}">{{ user.email }}</a>
+          {% endfor %}
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" data-target="#addEventModal">Додати подію</button>
+    </form>
+  </div>
+</nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.user-select').forEach(function(element) {
+    element.addEventListener('click', function(event) {
+      event.preventDefault();
+      const userId = this.getAttribute('data-user-id');
+      const url = new URL(window.location.href);
+      url.searchParams.set('user_id', userId);
+      window.location.href = url.toString();
+    });
+  });
+});
+</script>
+
+

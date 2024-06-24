@@ -1,0 +1,22 @@
+<ul class="sidebar_nav">
+  {% if user.is_authenticated %}
+    <li>
+      User: {{ user.username }}<br>
+{#      <a href="{% url 'catalog:authors-detail' user.pk %}">#}
+{#        {{ user.first_name }} {{ user.last_name }}#}
+{#      </a>#}
+    </li>
+    <br>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit">Logout</button>
+    </form>
+  {% else %}
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <button type="submit">Sign in</button>
+    </form>
+  {% endif %}
+  <br>
+  <li><a href="{% url 'index' %}">Home</a></li>
+</ul>

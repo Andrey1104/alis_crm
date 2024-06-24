@@ -1,0 +1,33 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+  {% load custom_tags %}
+  
+  {% include "includes/calendar_nav.html" %}
+  
+  <div class="calendar-container mt-3">
+    <div class="calendar-header">
+      <div class="empty-cell"></div>
+      {% for day in days_of_month %}
+        <div class="header-cell">
+          {{ day }}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="calendar-body">
+      {% for hour in 24|make_list %}
+        <div class="time-cell">{{ hour|stringformat:"02d" }}:00</div>
+        {% for day in days_of_month %}
+          <div class="calendar-cell">
+            {% for event in events %}
+              {% if event.start_time.date == day and event.start_time.hour == hour %}
+                <div class="event">
+                  {{ event.title }} {{ event.description }}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

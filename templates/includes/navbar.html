@@ -1,0 +1,30 @@
+<!-- Top bar content goes here -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Alis-Tech</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        {% if user.is_authenticated %}
+          <li class="nav-link">
+            {{ user.email }}<br>
+          </li>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+          </form>
+        {% else %}
+          <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <button type="submit">Sign in</button>
+          </form>
+        {% endif %}
+        <li><a href="{% url 'index' %}">Home</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+    

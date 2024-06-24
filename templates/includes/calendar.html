@@ -1,0 +1,72 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+  {% load custom_tags %}
+
+  {% include "includes/calendar_nav.html" %}
+
+  <div class="calendar-container mt-3">
+    <div class="calendar-header">
+      <div class="empty-cell"></div>
+      {% for day in days_of_week %}
+        <div class="header-cell">
+          {{ day }}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="calendar-body">
+      {% for hour in 24|make_list %}
+        <div class="time-cell">{{ hour|stringformat:"02d" }}:00</div>
+        {% for day in 7|make_list %}
+          <div class="calendar-cell">
+            {% for event in events %}
+              {% if event.start_time.weekday == day and event.start_time.hour == hour %}
+                <div class="event">
+                  <a href="{% url 'task:event_detail' event.pk %}">{{ event.title }}</a>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+  <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEventModalLabel">Додати подію</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="addEventForm" method="post" action="{% url 'task:create_event' %}">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="eventTitle">Назва події</label>
+              <input type="text" class="form-control" id="eventTitle" name="title" required>
+            </div>
+            <div class="form-group">
+              <label for="eventDescription">Опис</label>
+              <textarea class="form-control" id="eventDescription" name="description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="eventStartTime">Час початку</label>
+              <input type="datetime-local" class="form-control" id="eventStartTime" name="start_time" required>
+            </div>
+            <div class="form-group">
+              <label for="eventEndTime">Час завершення</label>
+              <input type="datetime-local" class="form-control" id="eventEndTime" name="end_time" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+            <button type="submit" class="btn btn-primary">Зберегти</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
