@@ -17,7 +17,7 @@
       {% for hour in 24|make_list %}
         <div class="time-cell">{{ hour|stringformat:"02d" }}:00</div>
         {% for day in 7|make_list %}
-          <div class="calendar-cell">
+          <div class="calendar-cell" data-day="{{ forloop.counter0 }}" data-hour="{{ hour }}">
             {% for event in events %}
               {% if event.start_time.weekday == day and event.start_time.hour == hour %}
                 <div class="event">
@@ -30,6 +30,8 @@
       {% endfor %}
     </div>
   </div>
+
+  <!-- Модальне вікно для створення події -->
   <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel"
        aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -68,5 +70,52 @@
       </div>
     </div>
   </div>
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          document.querySelectorAll('.calendar-cell').forEach(function (cell) {
+              cell.addEventListener('click', function () {
+                  const day = this.getAttribute('data-day');
+                  const hour = this.getAttribute('data-hour');
+                  if (day !== null && hour !== null) {
+                      const currentDate = new Date();
+                      const startDate = new Date(currentDate);
+                      startDate.setDate(currentDate.getDate() - currentDate.getDay() + parseInt(day));
+                      startDate.setHours(parseInt(hour), 0, 0, 0);
+
+                      if (isNaN(startDate.getTime())) {
+                          console.error('Invalid start date');
+                          return;
+                      }
+
+                      const endDate = new Date(startDate);
+                      endDate.setHours(startDate.getHours() + 1);
+
+                      if (isNaN(endDate.getTime())) {
+                          console.error('Invalid end date');
+                          return;
+                      }
+
+                      const formattedStartDate = startDate.toISOString().slice(0, 16);
+                      const formattedEndDate = endDate.toISOString().slice(0, 16);
+
+                      const startInput = document.getElementById('eventStartTime');
+                      const endInput = document.getElementById('eventEndTime');
+
+                      if (startInput && endInput) {
+                          startInput.value = formattedStartDate;
+                          endInput.value = formattedEndDate;
+                          $('#addEventModal').modal('show');
+                      } else {
+                          console.error('Start time or end time input not found');
+                      }
+                  } else {
+                      console.error('Day or hour data attribute not found');
+                  }
+              });
+          });
+      });
+  </script>
+
+
 {% endblock %}
 
