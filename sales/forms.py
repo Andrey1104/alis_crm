@@ -47,3 +47,9 @@ class OrderAdminForm(forms.ModelForm):
                 "on_hold_reason",
                 'On hold reason can not be chosen when status is not "ON HOLD".'
             )
+
+
+class OrderCreateForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['status', 'production_status', 'deadline', 'internal_deadline', 'partner', 'end_user', 'direct_customer', 'on_hold_reason']

@@ -1,4 +1,5 @@
 {% extends "layouts/base.html" %}
+{% load i18n %}
 {% block title %}
   <title>Home page</title>
 {% endblock %}
@@ -17,14 +18,14 @@
 
       <!-- Window 2 content -->
       <div class="window">
-        {% include "includes/calendar.html" %}
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-6">
       <div class="window">
-        Window 3
+        <p>{% trans "Window" %}</p>
+
       </div>
     </div>
     <div class="col-md-6">

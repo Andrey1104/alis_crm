@@ -1,12 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views import generic
+
+from django.views.generic import CreateView, ListView
 
 from chat.forms import ChatCreateForm, MessageForm
 from chat.models import Message
+from sales.forms import OrderCreateForm
+from sales.models import Order
 from task.models import Task, Event
 from user.models import User
 
@@ -23,6 +27,25 @@ def index(request: HttpRequest) -> HttpResponse:
         'events': events
     }
     return render(request, "layouts/index.html", context)
+
+
+class OrderListView(LoginRequiredMixin, ListView):
+    model = Order
+    paginate_by = 20
+    context_object_name = 'orders'
+
+    def get_queryset(self):
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            return Order.objects.filter(Q(number__icontains=search_query))
+        return Order.objects.all()
+
+
+class OrderCreateView(LoginRequiredMixin, CreateView):
+    model = Order
+    form_class = OrderCreateForm
+    success_url = reverse_lazy('sale:order_list')
+
 
 
 # class MessageCreateView(LoginRequiredMixin, generic.CreateView):

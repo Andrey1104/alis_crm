@@ -14,26 +14,27 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+from django.conf.urls.i18n import i18n_patterns
 from django.urls import path, include
-
+from django.contrib import admin
 from sales.views import index
 
+
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("__debug__/", include("debug_toolbar.urls")),
-    path("", index, name="index"),
-    path(
-        "task/",
-        include("task.urls", namespace="task"),
-    ),
-    # path(
-    #     "executor/",
-    #     include("executor.urls", namespace="executor"),
-    # ),
-    # path(
-    #     "chat/",
-    #     include("chat.urls", namespace="chat"),
-    # ),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path('i18n/', include('django.conf.urls.i18n')),
+    path('admin/', admin.site.urls),
+    path('debug/', include('debug_toolbar.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
+
+
+urlpatterns += i18n_patterns(
+    path('', index, name='index'),
+    path('task/', include('task.urls', namespace='task')),
+    path('sale/', include('sales.urls', namespace='sale')),
+
+)
+
+
+
+

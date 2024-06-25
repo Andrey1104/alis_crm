@@ -1,0 +1,94 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+  <div class="container">
+    <h1 class="mt-5">Order List</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Orders</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <form class="form-inline my-2 my-lg-0" method="GET" action=".">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search by number" aria-label="Search" name="search" value="{{ request.GET.search }}">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </li>
+        </ul>
+        <a href="{% url 'sale:order_create' %}" class="btn btn-primary">Create Order</a>
+      </div>
+    </nav>
+    <table class="table table-bordered table-striped mt-3">
+      <thead>
+      <tr>
+        <th>Number</th>
+        <th>Status</th>
+        <th>Production Status</th>
+        <th>Created At</th>
+        <th>Deadline</th>
+        <th>Internal Deadline</th>
+        <th>Updated At</th>
+        <th>Partner</th>
+        <th>End User</th>
+        <th>Direct Customer</th>
+        <th>On Hold Reason</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for order in page_obj %}
+        <tr>
+          <td>{{ order.number }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.production_status }}</td>
+          <td>{{ order.created_at }}</td>
+          <td>{{ order.deadline }}</td>
+          <td>{{ order.internal_deadline }}</td>
+          <td>{{ order.updated_at }}</td>
+          <td>{{ order.partner }}</td>
+          <td>{{ order.end_user }}</td>
+          <td>{{ order.direct_customer }}</td>
+          <td>{{ order.on_hold_reason }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <div class="pagination-container">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="First">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% endif %}
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <li class="page-item"><a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Last">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+{% endblock %}

@@ -13,6 +13,12 @@ header {
     z-index: 1000;
 }
 
+.navbar {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .top-bar .navbar-brand {
     color: #555;
     font-size: 24px;
@@ -26,14 +32,14 @@ header {
 }
 
 main {
-    padding-top: 60px;
+    padding-top: 80px;
 
 }
 
 #scrollToTopBtn {
     position: fixed;!important;
-    bottom: 70px;!important;
-    right: 240px;!important;
+    bottom: 50px;!important;
+    right: 100px;!important;
     display: none;!important;
     background-color: #48bcef;!important;
     color: #fff;!important;
@@ -56,12 +62,9 @@ main {
     text-align: center;
 }
 
-.col-sm-3 {
-    background-color: #ddd;
-}
-
 .col-sm-2 {
     background-color: #ddd;
+    text-align: center;
 }
 
 .footer {

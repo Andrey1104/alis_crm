@@ -1,11 +1,10 @@
 import calendar
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+
 from user.models import User
 from .models import Event
 from datetime import datetime, timedelta
@@ -57,26 +56,6 @@ class EventCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-
-
-def monthly_calendar_view(request):
-    today = datetime.today()
-    start_of_month = today.replace(day=1)
-    _, last_day_of_month = calendar.monthrange(today.year, today.month)
-    end_of_month = today.replace(day=last_day_of_month)
-    days_of_month = [(start_of_month + timedelta(days=i)).strftime('%A %d') for i in
-                     range((end_of_month - start_of_month).days + 1)]
-
-    events = Event.objects.filter(start_time__date__gte=start_of_month, start_time__date__lte=end_of_month)
-
-    context = {
-        'events': events,
-        'days_of_month': days_of_month,
-        'start_of_month': start_of_month,
-        'end_of_month': end_of_month,
-    }
-
-    return render(request, 'includes/monthly_calendar.html', context)
 
 
 class EventDetailView(LoginRequiredMixin, DetailView):
