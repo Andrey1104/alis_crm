@@ -48,7 +48,7 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
 
 def projection_view(request):
-    return render(request, 'projection/index.html')
+    return render(request, 'projector/projector_index.html')
 
 
 # class MessageCreateView(LoginRequiredMixin, generic.CreateView):
