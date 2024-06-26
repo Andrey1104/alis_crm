@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     "stock",
     "sales",
     "user",
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -108,6 +109,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'alis_crm.wsgi.application'
+
+ASGI_APPLICATION = 'alis_crm.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 # Database

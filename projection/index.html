@@ -1,0 +1,87 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>ALIS Tech | Projector Calculator</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+        <link rel="apple-touch-icon" type="image/png" sizes="32x32" href="./favicon.png">
+        <link rel="stylesheet" href="./style.css">
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+        <div id="page-grid">
+            <div id="header">
+                <img class="logo" src="logo.png" alt="ALIS Tech logo">
+                <h1>Projector Calculator</h1>
+            </div>
+            <div id="controls">
+                <fieldset class="control">
+                    <legend class="label">Symbol</legend>
+                    <div class="button-group" data-param="symbol">
+                    </div>
+                </fieldset>
+                <div class="control control-row">
+                    <span class="label">Upload symbol</span>
+                    <label id="upload-symbol" class="button control-row-element">
+                        <input type="file" value="Upload">
+                        <span>Upload</span>
+                    </label>
+                </div>
+                <fieldset class="control">
+                    <legend class="label">Floor material</legend>
+                    <div class="button-group" data-param="floor_material">
+                    </div>
+                </fieldset>
+                <div class="control control-row">
+                    <span class="label">Floor color</span>
+                    <label id="floor-color-picker" class="button control-row-element">
+                        <input type="button" value="Select">
+                        <span>Select</span>
+                    </label>
+                </div>
+                <label class="control control-row">
+                    <span class="label">Spot illuminance</span>
+                    <div class="input-field control-row-element">
+                        <input type="text" name="spot_illuminance_lx"><span>&nbsp;lx</span>
+                    </div>
+                </label>
+                <label class="control control-row">
+                    <span class="label">Projection height</span>
+                    <div class="input-field control-row-element">
+                        <input type="text" name="projection_height_cm"><span>&nbsp;cm</span>
+                    </div>
+                </label>
+                <fieldset class="control">
+                    <legend class="label">Optics</legend>
+                    <div class="button-group" data-param="optics">
+                    </div>
+                </fieldset>
+                <fieldset class="control">
+                    <legend class="label">Chip power</legend>
+                    <div class="button-group" data-param="projector">
+                    </div>
+                </fieldset>
+                <label class="control control-row">
+                    <span class="label">Illuminance factor</span>
+                    <div class="input-field control-row-element">
+                        <input type="text" name="illuminance_factor" disabled><span></span>
+                    </div>
+                </label>
+                <label class="control control-row">
+                    <span class="label">Maximum projection diameter</span>
+                    <div class="input-field control-row-element">
+                        <input type="text" name="projection_diameter_cm" disabled><span>&nbsp;cm</span>
+                    </div>
+                </label>
+                <label class="control control-row">
+                    <span class="label">Measurement rectangle size</span>
+                    <div class="input-field control-row-element">
+                        <input type="text" name="meas_rect_size_cm" disabled><span>&nbsp;cm</span>
+                    </div>
+                </label>
+            </div>
+            <div id="scene"></div>
+        </div>
+    </body>
+{% endblock %}

@@ -1,0 +1,279 @@
+/* Reset https://meyerweb.com/eric/tools/css/reset/ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, input,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+canvas {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* mobile webkit */
+}
+input:focus {
+    outline: none;
+}
+
+/* Vars */
+
+:root {
+    --primary-blue: #3D9BE9;
+    --primary-blue-light: #6DB6F1;
+    --light-grey: #E7E7E7;
+    --mid-grey: #B0B0B0;
+    --header-grey: #2F2E2E;
+    --input-field-underline-weight: 2px;
+    --control-border-radius: 0.25rem;
+    --control-padding: 0.5rem;
+    --control-margin: 0.25rem;
+    --header-height: 3rem;
+}
+
+/* Fonts */
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.75rem;
+}
+
+/* Page layout */
+
+html, body, #page-grid {
+    width: 100%;
+    height: 100%;
+}
+
+#page-grid {
+    display: grid;
+    grid-template-columns: max-content minmax(50%, auto);
+    grid-template-rows: var(--header-height) auto;
+
+    background-color: black;
+}
+
+#scene {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    overflow: hidden;
+    background-color: black;
+}
+
+/* Header */
+
+#header {
+    height: var(--header-height);
+    padding: 0.5rem;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    background-color: var(--header-grey);
+}
+
+#header img {
+    height: 100%;
+    padding-bottom: 0.1rem;
+}
+
+#header h1 {
+    margin: 0 1rem;
+    color: white;
+}
+
+/* Controls */
+
+#controls {
+    display: flex;
+    flex-flow: column nowrap;
+
+    padding: 1rem;
+
+    background-color: white;
+}
+
+#controls .control:first-child {
+    margin-top: 0;
+}
+
+.control {
+    margin: 1rem 0rem 1rem 0rem;
+}
+
+.control-row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0.5rem 0rem 0.5rem 0rem;
+}
+
+/* Button group */
+
+.button-group {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+    margin: calc(0rem - var(--control-margin));
+    margin-top: 0.75rem;
+}
+
+.button-group > * {
+    flex: 1 0 0;
+    margin: var(--control-margin);
+}
+
+/* Button */
+
+.button {
+    position: relative;
+    max-width: 34%;
+}
+
+.button > input[type="radio"], .button > input[type="button"], .button > input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.button span {
+    width: 100%;
+    padding: var(--control-padding) calc(1.5 * var(--control-padding));
+    display: inline-block;
+    white-space: nowrap;
+    pointer-events: none;
+
+    border-radius: var(--control-border-radius);
+    text-align: center;
+    transition: 0.15s all linear;
+    background-color: var(--light-grey);
+    color: black;
+}
+
+.image-button {
+    flex: 0 0 0;
+}
+
+.image-button img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    object-fit: contain;
+    vertical-align: bottom;
+    background-color: black;
+}
+
+.image-button span {
+    padding: var(--control-padding);
+}
+
+.button input:checked + span {
+    background-color: var(--primary-blue);
+    box-shadow: 0.1rem 0.1rem 0.25rem silver;
+    color: white;
+}
+
+.button input:checked:focus + span {
+    filter: brightness(115%);
+}
+
+.button input:checked:hover + span {
+    filter: brightness(115%);
+}
+
+.button input:focus + span {
+    filter: brightness(90%);
+}
+
+.button input:hover + span {
+    filter: brightness(90%);
+}
+
+/* Number field */
+
+input[type="text"]:invalid {
+    box-shadow: unset;
+    color: red;
+}
+
+.control-row-element {
+    height: 2rem;
+    width: 8rem;
+    margin-left: 1rem;
+}
+
+.input-field {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+    justify-content: flex-end;
+    overflow: hidden;
+
+    border-radius: var(--control-border-radius);
+    background-color: var(--light-grey);
+}
+
+.input-field input {
+    flex: 1 1 auto;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    padding-left: var(--control-padding);
+    padding-right: 3rem;
+    margin-right: -3rem;
+    z-index: 2;
+
+    transition: 0.15s all linear;
+
+    border: 0;
+    border-top: var(--input-field-underline-weight) solid transparent;
+    border-bottom: var(--input-field-underline-weight) solid var(--mid-grey);
+    border-radius: var(--control-border-radius);
+
+    text-align: right;
+    background-color: transparent;
+}
+
+.input-field > input:focus {
+    border-bottom: var(--input-field-underline-weight) solid var(--primary-blue-light);
+}
+
+.input-field span {
+    flex: 0 0 auto;
+    padding-right: var(--control-padding);
+    z-index: 1;
+}
+
+input[type="text"]:disabled {
+    color: dimgrey;
+    border: transparent;
+}
+
+.input-field input[type="text"]:disabled + span {
+    color: dimgrey;
+}

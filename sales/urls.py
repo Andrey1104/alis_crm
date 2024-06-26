@@ -1,6 +1,8 @@
-from django.urls import path
+from django.urls import path, re_path
 
+from sales import consumers
 from sales.views import OrderListView, OrderCreateView
+
 
 app_name = 'sales'
 

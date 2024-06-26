@@ -17,11 +17,14 @@ Including another URLconf
 from django.conf.urls.i18n import i18n_patterns
 from django.urls import path, include
 from django.contrib import admin
+
+from sales.routing import websocket_urlpatterns
 from sales.views import index
 
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
+    path('ws/', include(websocket_urlpatterns)),
     path('admin/', admin.site.urls),
     path('debug/', include('debug_toolbar.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
@@ -31,7 +34,8 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('', index, name='index'),
     path('task/', include('task.urls', namespace='task')),
-    path('sale/', include('sales.urls', namespace='sale')),
+    path('sales/', include('sales.urls', namespace='sale')),
+
 
 )
 

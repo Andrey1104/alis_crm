@@ -47,6 +47,9 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('sale:order_list')
 
 
+def projection_view(request):
+    return render(request, 'projection/index.html')
+
 
 # class MessageCreateView(LoginRequiredMixin, generic.CreateView):
 #     model = Message
